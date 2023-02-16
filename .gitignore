@@ -1,0 +1,35 @@
+# Logs
+
+logs
+**/logs
+
+*.log
+**/*.log
+
+.cache/
+**/.cache/
+
+
+.DS_Store
+**/.DS_Store
+
+
+
+# Environments
+.env
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# ignored folders
+
+data/*
+
+topic/*
+
+converted_video_download/*
+
+tests/*
+docs/*
+outputs/*
