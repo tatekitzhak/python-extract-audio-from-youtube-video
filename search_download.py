@@ -6,21 +6,21 @@ import urllib.parse
 import re
 
 # Searching youtube videos by a string user input 
-def search_youtube_video():
-    print("Please, enter search query:")
+def youtube_search():
+    print("Please, enter a search term:")
 
     query_string = urllib.parse.urlencode({"search_query" : input()})
     html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
     search_results_array = re.findall(r"watch\?v=(.{11})", html_content.read().decode())
 
-    print('Search query that provaided : %s' %(search_results_array))
+    print('Search term that provaided : %s' %(search_results_array))
     for i in search_results_array:
         print("******** https://www.youtube.com/watch?v=" + i)
-        download_youtube_video("https://www.youtube.com/watch?v=" + i, i)
+        extract_audio_from_youtube("https://www.youtube.com/watch?v=" + i, i)
 
 # Download youtube video by URL query 
 
-def download_youtube_video(url, name):    
+def extract_audio_from_youtube(url, name):    
     folder_name = 'test'
     ydl_opts = {
         'format': 'bestaudio/best',
@@ -41,4 +41,4 @@ def download_youtube_video(url, name):
     except Exception:
         return False
 
-search_youtube_video()
+youtube_search()

@@ -29,7 +29,7 @@ ydl_opts ={
              }]
      }
 
-url ='https://www.youtube.com/watch?v='+audio_file_name
+url ='https://www.youtube.com/watch?v='
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     ydl.download([url])
 # info_dict = ydl.extract_info(url, download=False)
