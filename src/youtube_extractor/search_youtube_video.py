@@ -20,3 +20,53 @@
 # print('Search query that provaided : %s' %(search_results_array))
 # for i in search_results_array:
 #    print("https://www.youtube.com/watch?v=" + i)
+
+from __future__ import unicode_literals
+import yt_dlp
+
+folder_name = 'converted_video_download'
+audio_file_name1 = 'F_QFkE-UbGM'
+audio_file_long = '8hly31xKli0'
+
+
+def my_hook(d):
+    if d['status'] == 'finished':
+        print('\nDone downloading, now converting ...')
+
+
+ydl_opts = {
+    'writesubtitles': True,
+    'skip-download': True,
+    'outtmpl': f'/Users/eli/git_repos/python-projects/extract-audio-from-youtube-video/'+folder_name+'/'+audio_file_name1,
+    'noplaylist': True,
+    'continue_dl': True,
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'wav',  # 'mp3',
+        'preferredquality': '192',
+    }],
+    'progress_hooks': [my_hook],
+}
+
+url = 'https://www.youtube.com/watch?v='+audio_file_name1
+with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+    ydl.download([url])
+meta = ydl.extract_info(url, download=False)
+video_url = meta.get("url", None)
+video_id = meta.get("id", None)
+video_title = meta.get('title', None)
+
+# print('meta : %s' % (meta))
+print('video_id: %s' % (video_id))
+print('video_title: %s' % (video_title))
+
+print('upload date : %s' % (meta['upload_date']))
+print('uploader    : %s' % (meta['uploader']))
+print('views       : %d' % (meta['view_count']))
+print('likes       : %d' % (meta['like_count']))
+# print ('dislikes   : %d' % (meta['dislike_count']))
+print('id          : %s' % (meta['id']))
+print('format      : %s' % (meta['format']))
+print('duration    : %s' % (meta['duration']))
+print('title       : %s' % (meta['title']))
+print('description : %s' % (meta['description']))

@@ -6,6 +6,30 @@ audio_file_name1 = 'F_QFkE-UbGM'
 audio_file_long = '8hly31xKli0'
 
 
+def get_info(meta):
+
+    try:
+        video_url = meta.get("url", None)
+        video_id = meta.get("id", None)
+        video_title = meta.get('title', None)
+
+        print('video_id: %s' % (video_id))
+        print('video_title: %s' % (video_title))
+        print('video url : %s' % (video_url))
+        print('upload date : %s' % (meta['upload_date']))
+        print('uploader    : %s' % (meta['uploader']))
+        print('views       : %d' % (meta['view_count']))
+        print('likes       : %d' % (meta['like_count']))
+        # print ('dislikes   : %d' % (meta['dislike_count']))
+        print('id          : %s' % (meta['id']))
+        print('format      : %s' % (meta['format']))
+        print('duration    : %s' % (meta['duration']))
+        print('title       : %s' % (meta['title']))
+        print('description : %s' % (meta['description']))
+    except Exception as e:
+        print('Exception : %s' % e)
+
+
 def my_hook(d):
     if d['status'] == 'finished':
         print('\nDone downloading, now converting ...')
@@ -29,25 +53,7 @@ url = 'https://www.youtube.com/watch?v='+audio_file_name1
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
     ydl.download([url])
 meta = ydl.extract_info(url, download=False)
-video_url = meta.get("url", None)
-video_id = meta.get("id", None)
-video_title = meta.get('title', None)
-
-# print('meta : %s' % (meta))
-print('video_id: %s' % (video_id))
-print('video_title: %s' % (video_title))
-
-print('upload date : %s' % (meta['upload_date']))
-print('uploader    : %s' % (meta['uploader']))
-print('views       : %d' % (meta['view_count']))
-print('likes       : %d' % (meta['like_count']))
-# print ('dislikes   : %d' % (meta['dislike_count']))
-print('id          : %s' % (meta['id']))
-print('format      : %s' % (meta['format']))
-print('duration    : %s' % (meta['duration']))
-print('title       : %s' % (meta['title']))
-print('description : %s' % (meta['description']))
-
+get_info(meta)
 
 ############### Searching youtube videos by a string user input ##########
 

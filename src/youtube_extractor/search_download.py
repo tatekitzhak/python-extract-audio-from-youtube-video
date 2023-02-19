@@ -4,7 +4,29 @@ import youtube_dl
 import urllib.request
 import urllib.parse
 import re
-
+"""
+def get_info():
+    global video,lc,im5
+    link_vid = txt2.get()
+    try:
+        video = pafy.new(link_vid)
+    except Exception as e:
+        error = tk.Label(windo, text="Something went wrong!! Please check URL", width=35, height=2, fg="white", bg="red",
+                        font=('times', 18, ' bold '))
+        error.place(x=274, y=370)
+        windo.after(5000, destroy_widget, error)
+        print(e)
+def download_video_thumbnail():
+    try:
+        vid_id = video.videoid
+        im5.save(vid_id+'.jpg')
+        msg = tk.Label(windo, text='Thumbnail Downloaded', width=25, height=2, fg="white", bg="midnightblue",
+                        font=('times', 18, ' bold '))
+        msg.place(x=274, y=370)
+        windo.after(5000, destroy_widget, msg)
+    except Exception as e:
+        print(e)
+"""
 # Searching youtube videos by a string user input 
 def youtube_search():
     print("Please, enter a search term:")
