@@ -17,7 +17,8 @@ if __name__ == "__main__":
        database_names = client.list_database_names()
 
        print ("The client's list_database_names() method returned", len(database_names), "database names.")
-       print(create_collection(client, 'sample_db', 'col-2'))
+       msg = create_collection(client, 'sample_db', 'col-8')
+       print(msg)
    else:
        print ("The domain and port parameters passed to client's host is invalid")
    

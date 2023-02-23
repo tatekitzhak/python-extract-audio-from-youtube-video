@@ -57,11 +57,8 @@ def create_collection(client, db_name, col_name):
     db_is_exists = check_existence_DB(db_name, client)
     col_is_exists = check_existence_collection(client, db_name, col_name)
 
-    print('col_is_exists', col_is_exists)
-    if((db_is_exists != None) & (col_is_exists != None)):
-        print('db_is_exists:',db_is_exists)
-        return
-    else:
+    if((db_is_exists != None) & (col_is_exists == None)):
+        print('db_is_exists and col_not_exists:',db_is_exists)
         db.create_collection(
         name=col_name,
         codec_options=None,
@@ -72,7 +69,10 @@ def create_collection(client, db_name, col_name):
         )
         col_dict = db.validate_collection(col_name)
         print(db.list_collection_names(), col_dict)
-        return 'Database: ' + db_name + ' or collection: '+ col_name +' does not exist'
+        return 'A New Collection is created: ' + col_name
+    else:
+        
+        return 'Database: ' + db_name + ' does not exist or collection: '+ col_name +' is exist'
     
     
    # create weekly demand collection
