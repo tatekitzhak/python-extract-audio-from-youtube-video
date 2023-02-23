@@ -13,11 +13,8 @@ logs
 .DS_Store
 **/.DS_Store
 
-
-
 # Environments
 .env
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -33,3 +30,18 @@ converted_video_download/*
 tests/*
 docs/*
 outputs/*
+
+# VSCode
+.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix

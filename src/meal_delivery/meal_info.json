@@ -1,0 +1,62 @@
+[
+    {
+        "meal_id": 1230,
+        "category": "Beverages",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 1207,
+        "category": "Beverages",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2322,
+        "category": "Beverages",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 1558,
+        " category": "Pizza",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2581,
+        "category": "Pizza",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 1962,
+        "category": "Pizza",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 1571,
+        "category": "Fish",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2956,
+        "category": "Fish",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2164,
+        "category": "Fish",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2444,
+        "category": "seafood",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 2867,
+        "category": "Seafood",
+        "cuisine": "Continental"
+    },
+    {
+        "meal_id": 1485,
+        "category": "Seafood",
+        "cuisine": "Continental"
+    }
+]
