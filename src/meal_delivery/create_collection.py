@@ -9,7 +9,7 @@ def check_existence_DB(db_name, client):
     
     for col_num, db in enumerate(list_of_dbs):
         # print ("\nGetting collections for database:", db, "--", col_num)
-        # use the list_collection_names() method to return collection names
+        # Return collection names
         collection_names = client[db].list_collection_names()
         print ("The MongoDB database returned", len(collection_names), "collections.", collection_names)
 
@@ -31,15 +31,16 @@ def check_existence_collection(client, db_name, col_name):
 
     #  It verifies the existence of collection name in a database
     db = client[db_name]
-    collection_list = db.list_collection_names()
+    col_list = db.list_collection_names()
     # col_dict = db.validate_collection(col_name)
-    if col_name in collection_list:
-        print(f"Collection: '{col_name}' in Database: '{db_name}' exists", collection_list)
+    if col_name in col_list:
+        print(f"Collection: '{col_name}' in Database: '{db_name}' exists", col_list)
         return col_name
     else:
         print(f"Collection: '{col_name}' in Database: '{db_name}' does not exists") 
         return None
 
+# def insert(col, doc_or_docs):
 
 # Now let’s try to create a database and a collection.
 """
@@ -53,6 +54,39 @@ check_existence_collection("ExampleCollection", "exampleDB" , client)
 # Collection: 'ExampleCollection' in Database: 'exampleDB' does not exists
 
 def create_collection(client, db_name, col_name):
+    """ 
+    # create a collation object for the new collection
+colla = Collation(
+locale = "en_US",
+strength = 2,
+numericOrdering = True,
+backwards = False
+)
+
+# dictionary version of the same collation
+# colla = {'locale': 'en_US', 'strength': 2, 'numericOrdering': True, 'backwards': False}
+
+    try:
+        col = db.create_collection(
+        name=collection_name,
+        codec_options=None,
+        read_preference=None,
+        write_concern=None,
+        read_concern=None,
+        session=None,
+        collation=colla
+        )
+    except Exception as err:
+
+        # collection already exists
+        if "already exists" in err._message:
+            col = db[collection_name]
+        else:
+            print ("create_collection() ERROR:", err)
+            col = None
+
+        print ("Collection name:", col.name)
+    """
     db = client[db_name]
     db_is_exists = check_existence_DB(db_name, client)
     col_is_exists = check_existence_collection(client, db_name, col_name)
@@ -69,6 +103,7 @@ def create_collection(client, db_name, col_name):
         )
         col_dict = db.validate_collection(col_name)
         print(db.list_collection_names(), col_dict)
+        #  raise TypeError("name_or_collection must be an instance of str or Collection")
         return 'A New Collection is created: ' + col_name
     else:
         
