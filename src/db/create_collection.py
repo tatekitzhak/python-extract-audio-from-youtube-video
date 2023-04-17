@@ -6,13 +6,13 @@ def check_existence_DB(db_name, client):
          print(f"'{db_name}' exists")
      print(f" '{db_name}' does not exist")
 
- def check_existence_collection(collection_name, db_name, client):
-     """It verifies the existence of collection name in a database"""
-     db = client[db_name]
-     collection_list = db.list_collection_names()
-     if collection_name in collection_list:
-         print(f"Collection: '{collection_name}' in Database: '{db_name}' exists")
-     print(f"Collection: '{collection_name}' in Database: '{db_name}' does not exists") 
+def check_existence_collection(collection_name, db_name, client):
+    """It verifies the existence of collection name in a database"""
+    db = client[db_name]
+    collection_list = db.list_collection_names()
+    if collection_name in collection_list:
+        print(f"Collection: '{collection_name}' in Database: '{db_name}' exists")
+    print(f"Collection: '{collection_name}' in Database: '{db_name}' does not exists") 
 
 # Now let’s try to create a database and a collection.
 

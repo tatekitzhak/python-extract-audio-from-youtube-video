@@ -2,9 +2,9 @@ import pymongo
 from pymongo import MongoClient
 import json
 
-def create_db_collection(client):
-   db = client['mydatabase']
-   collection = db["person1"]
+def create_collection(client, db_name, col_name):
+   db = client[db_name]
+   collection = db[col_name]
 
    student = {
       'name': 'Maayan',
@@ -13,10 +13,10 @@ def create_db_collection(client):
    }
    collection.insert_one(student)
 
-   print('create_db_collection:',client.list_database_names())
+   print('create_collection:',client.list_database_names())
 
 
-def get_database():
+def get_dbs_client():
   
    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
    db_client = MongoClient("mongodb://localhost:27017/")
@@ -25,20 +25,20 @@ def get_database():
    print('datebases:',db_client.list_database_names())
 
    # Available collections in a specific database
-   d = dict((db, [collection for collection in db_client[db].list_collection_names()]) 
-      for db in db_client.list_database_names())
-   print('json.dumps(d):',d['contxt'])
+   # db_information = dict((db, [collection for collection in db_client[db].list_collection_names()]) 
+   #    for db in db_client.list_database_names())
+   # print('databases information:',db_information)
  
    return db_client
   
 if __name__ == "__main__":   
   
-   # Get the database
-   mydatabase = get_database()
-   create_db_collection(mydatabase)
+   # Get the databases client
+   dbs_client = get_dbs_client()
+   create_collection(dbs_client, 'mydatabase', "maayan3")
    
    # Select database by name
-   db = mydatabase['contxt']
+   db = dbs_client['contxt']
    print('myDB:', db)
    # Available collections in a specific database
    print ("collections:", db.list_collection_names())
@@ -46,6 +46,6 @@ if __name__ == "__main__":
    collection = db['categories']
 
    for document in collection.find():
-       print(document)
+       print("document: ", document)
    
    

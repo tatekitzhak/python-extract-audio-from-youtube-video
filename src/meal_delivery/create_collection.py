@@ -15,7 +15,7 @@ def check_existence_DB(db_name, client):
 
         # iterate over the list of collection names
         for col_num, col in enumerate(collection_names):
-            print ('#col and nums:', col, "--", col_num)
+            print ('#col name:', col, ", index:", col_num)
    
     # It verifies the existence of DB
     if db_name in list_of_dbs:
