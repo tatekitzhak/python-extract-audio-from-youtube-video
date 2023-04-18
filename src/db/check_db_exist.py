@@ -4,7 +4,7 @@ CheckDatabaseExists
 from pymongo.collation import Collation
 # https://analyticsindiamag.com/guide-to-pymongo-a-python-wrapper-for-mongodb/
 
-def check_db_exists(db_name, client):
+def db_is_exist(db_name, client):
     # the list_database_names() method returns a list of strings
     list_of_dbs = client.list_database_names()
     

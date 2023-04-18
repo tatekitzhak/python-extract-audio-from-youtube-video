@@ -4,7 +4,7 @@ CheckDatabaseExists
 from pymongo.collation import Collation
 # https://analyticsindiamag.com/guide-to-pymongo-a-python-wrapper-for-mongodb/
 
-def check_collection_exists(client, db_name, col_name):
+def collection_is_exist(client, db_name, col_name):
     
     #  It verifies the existence of collection name in a database
     db = client[db_name]

@@ -93,14 +93,7 @@ backwards = False
 
     if((db_is_exists != None) & (col_is_exists == None)):
         print('db_is_exists and col_not_exists:',db_is_exists)
-        db.create_collection(
-        name=col_name,
-        codec_options=None,
-        read_preference=None,
-        write_concern=None,
-        read_concern=None,
-        session=None
-        )
+        db.create_collection(name=col_name, codec_options=None, read_preference=None, write_concern=None, read_concern=None, session=None)
         col_dict = db.validate_collection(col_name)
         print(db.list_collection_names(), col_dict)
         #  raise TypeError("name_or_collection must be an instance of str or Collection")
