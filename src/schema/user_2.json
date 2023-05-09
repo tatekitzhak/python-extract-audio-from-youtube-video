@@ -1,0 +1,73 @@
+{
+    "title": "UserProfile",
+    "description": "Schema for User Profiles",
+    "type": "object",
+    "required": ["username", "fName", "lName", "phone", "email", "website"],
+    "properties": {
+      "username": {
+        "title": "Username",
+        "type": "string"
+      },
+      "fName": {
+        "title": "FirstName",
+        "type": "string"
+      },
+      "lName": {
+        "title": "lastName",
+        "type": "string"
+      },
+      "phone": {
+        "$ref": "#/definitions/Phone"
+      },
+      "email": {
+        "title": "Email",
+        "type": "string"
+      },
+      "company": {
+        "title": "Company",
+        "type": "string"
+      },
+      "residence": {
+        "title": "Residence",
+        "type": "string"
+      },
+      "website": {
+        "title": "Website",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2083,
+          "format": "uri"
+        }
+      },
+      "job": {
+        "title": "Job",
+        "type": "string"
+      },
+      "address": {
+        "title": "Address",
+        "type": "string"
+      }
+    },
+    "definitions": {
+      "Phone": {
+        "title": "Phone",
+        "description": "Schema for Phone numbers",
+        "type": "object",
+        "properties": {
+          "home": {
+            "title": "Home",
+            "type": "string"
+          },
+          "mobile": {
+            "title": "Mobile",
+            "type": "string"
+          }
+        },
+        "required": ["home", "mobile"]
+      }
+    },
+  "validationLevel": "strict",
+  "validationAction": "error"
+  }

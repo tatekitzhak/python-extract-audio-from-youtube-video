@@ -1,0 +1,69 @@
+import sys
+import pymongo
+from pymongo import MongoClient
+from pymongo.collation import Collation
+sys.path.append('./db')
+from db.database_connection import db_connect
+# from services.collections.create_collection import create_collection_with_validation_rules
+import services.collections.create_collection as create_collection
+from services.collections.check_collection_exist import collection_is_exist
+# Lookup Aggregations:
+""" 
+https://hevodata.com/learn/mongodb-lookup/
+https://stackoverflow.com/questions/41992885/pymongo-how-to-match-on-lookup
+"""
+
+def handle_topic(subcategory_name):
+
+    topic_schema1 = {
+        "bsonType": "object",
+        "title": "Student Object Validation",
+        "required": [ "address", "major", "name", "year" ],
+        "properties": {
+            "name": {
+                "bsonType": "string",
+                "description": "'name' must be a string and is required"
+            },
+            "year": {
+                "bsonType": "int",
+                "minimum": 2017,
+                "maximum": 3017,
+                "description": "'year' must be an integer in [ 2017, 3017 ] and is required"
+            },
+            "gpa": {
+                "bsonType": [ "double" ],
+                "description": "'gpa' must be a double if the field exists"
+            }
+        }
+    }
+    client = db_connect()
+
+    # collection_is_exist(client, "sample_db", "topic_schema4")
+    if client != None:
+        res = create_collection.create_collection_method_1(client, 'sample_db', 'topic_schema8',topic_schema1)
+        print('handle_topic:', res)
+
+def find_subcategory_name(db_name, coll, pipeline):   
+   handle_topic('abc')
+   # Get the database db_connect (client)
+   client = db_connect()
+   if client != None:
+       
+       db = client[db_name]
+       collection = db[coll]
+       for doc in collection.aggregate(pipeline):
+        #    print("subcategories _ids:",doc['subcategories'])
+           for subcat_id in doc['subcategories']:
+            #    print('subcat_id:', subcat_id)
+               for sub_doc in doc['lookup_subcategories']:
+                   if subcat_id == sub_doc['_id']:
+                    #    if _ids match call youtube procsess by Subcategorie name
+                       print(f"Categorie name: '{doc['name']}', Subcategorie name: ")
+                   else:
+                       print(f"ERROR, DATA NOT MATCH: Categorie name: '{doc['name']}', Subcategorie name: '{sub_doc['name']}, _id: '{sub_doc['_id']}'")
+       return collection
+
+   else:
+       print(f"One of them is invalid: '{db_name}', '{coll}', '{pipeline}' ")
+    
+

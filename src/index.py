@@ -6,7 +6,7 @@ import sys
 from db.database_connection import db_connect
 import db.collections.check_collection_exist as mymodule
 import db.collections.insert as insert_module
-import services.find_subcategory_name as services_module
+import services.lookup_subcategories_data as subcategories_data
 
 if __name__ == "__main__":
 
@@ -26,6 +26,9 @@ if __name__ == "__main__":
                                  'as': 'lookup_subcategories'
                                  }
                      }]
+        
+        subcategories_data.find_subcategory_name("contxt", "categories", pipeline)
+        """
         doc = {
             'fname': 'Maayan',
             'lname': 'Itzhak',
@@ -34,28 +37,12 @@ if __name__ == "__main__":
             'age': 1.4,
             'gender': 'female'
         }
-        services_module.get_collection("contxt", "categories", pipeline)
-        # insert_module.insert_one(client, "mydatabase", "maayan4", doc)
-        # insert_module.insert_many()
+        insert_module.insert_one(client, "mydatabase", "maayan4", doc)
+        insert_module.insert_many()
+        """
         # mymodule.collection_is_exist(client, 'sample_db', 'col-9')
-        """db_is_exist(client, 'sample_db')"""
+        # db_is_exist(client, 'sample_db')
      #    msg = create_collection(client, 'sample_db', 'col-13')
      #    print('create_collection:',msg)
     else:
         print("The domain and port parameters passed to client's host is invalid")
-
-
-"""
-pipeline = [{'$lookup':{ 'from' : 'subcategories',
-                                'localField' : 'subcategories',
-                                'foreignField' : '_id',
-                                'as' : 'lookup_categories'
-                            }
-                    }]
-       print(client['contxt'].aggregate([{'$lookup':{ 'from' : 'subcategories',
-                                'localField' : 'subcategories',
-                                'foreignField' : '_id',
-                                'as' : 'lookup_categories'
-                            }
-                    }]))
-"""

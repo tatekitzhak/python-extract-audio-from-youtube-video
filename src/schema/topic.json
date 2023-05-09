@@ -1,0 +1,65 @@
+{
+    "bsonType": "object",
+    "title": "Product Object Validation",
+    "required": [
+        "name"
+    ],
+    "properties": {
+        "name": {
+            "bsonType": "string",
+            "description": "'name' is required"
+        },
+        "title": {
+            "bsonType": "string",
+            "description": "'Title' of topic"
+        },
+        "description": {
+            "bsonType": "string",
+            "description": "'Description' of topic"
+        },
+        "video": {
+            "bsonType": "string",
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "url": {
+                    "bsonType": "string",
+                    "description": "'video' of the topic"
+                }
+            }
+        },
+        "article": {
+            "bsonType": "string",
+            "description": "article"
+        },
+        "rating": {
+            "bsonType": "double",
+            "minimum": 0.00,
+            "maximum": 5.00,
+            "description": "'Rating' must be a number "
+        },
+        "subscribers": {
+            "bsonType": "int",
+            "minimum": 0,
+            "description": "'subscribers' must be a number and its required"
+        },
+        "tags": {
+            "bsonType": "string",
+            "description": "'tags' must be a string and its required"
+        },
+        "subcategory": {
+            "bsonType": "string",
+            "description": "'subcategory' must be a string and its required"
+        },
+        "thumbnail": {
+            "bsonType": "string",
+            "description": "'Thumbnail' must be a string and its required"
+        },
+        "images": {
+            "bsonType": "array",
+            "description": "'Image' must be exists"
+        }
+    },
+    "additionalProperties": false
+}

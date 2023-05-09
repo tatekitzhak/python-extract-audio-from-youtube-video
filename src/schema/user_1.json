@@ -1,0 +1,76 @@
+{
+    "title": "UserProfile",
+    "description": "Schema for User Profiles",
+    "type": "object",
+    "properties": {
+      "username": {
+        "title": "Username",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "phone": {
+        "$ref": "#/definitions/Phone"
+      },
+      "mail": {
+        "title": "Mail",
+        "type": "string"
+      },
+      "company": {
+        "title": "Company",
+        "type": "string"
+      },
+      "residence": {
+        "title": "Residence",
+        "type": "string"
+      },
+      "website": {
+        "title": "Website",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2083,
+          "format": "uri"
+        }
+      },
+      "job": {
+        "title": "Job",
+        "type": "string"
+      },
+      "address": {
+        "title": "Address",
+        "type": "string"
+      }
+    },
+    "required": [
+      "username",
+      "name",
+      "phone",
+      "mail",
+      "website"
+    ],
+    "definitions": {
+      "Phone": {
+        "title": "Phone",
+        "description": "Schema for Phone numbers",
+        "type": "object",
+        "properties": {
+          "home": {
+            "title": "Home",
+            "type": "string"
+          },
+          "mobile": {
+            "title": "Mobile",
+            "type": "string"
+          }
+        },
+        "required": [
+          "home",
+          "mobile"
+        ]
+      }
+    }
+  }

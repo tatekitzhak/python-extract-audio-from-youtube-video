@@ -1,16 +1,71 @@
 import json
+import sys
+import pymongo
+from pymongo import MongoClient
+from pymongo.errors import CollectionInvalid
+sys.path.append('../db')
 # import the Collation module for PyMongo
 from pymongo.collation import Collation
+from collections import OrderedDict
 from check_db_exist import db_is_exist
-from check_collection_exist import collection_is_exist
+from services.collections.check_collection_exist import collection_is_exist
 
 # https://analyticsindiamag.com/guide-to-pymongo-a-python-wrapper-for-mongodb/
 
+def create_collection_with_validation_rules(client="", db_name="", collection_name="", json_schema=""):
+    print("hello:",client, db_name, collection_name, json_schema)
+    coll = Collation(
+        locale = "en_US",
+        strength = 2,
+        numericOrdering = True,
+        backwards = False
+    )
+    db = client[db_name]
+    
+    coll_create_result = db.create_collection(
+        name=collection_name,
+        validator={"$jsonSchema": json_schema},
+        validationLevel= "strict",
+        validationAction= "error",
+        collation=coll
+    )
+    
+    return coll_create_result
+
+def create_collection_method_1(client="", db_name="", collection_name="", json_schema=""):
+
+    db = client[db_name]
+    
+    # if collection not exist create the collection_name
+    coll_is_exist = collection_is_exist(client, db_name, collection_name)
+    if 0:
+        print('create_collection_method_1 *:', coll_is_exist)
+        return True
+    else:
+    
+        try:
+            coll_created_res = db.create_collection(collection_name)
+            print('create_collection_method_1 **:', coll_created_res)
+            return coll_created_res
+        except CollectionInvalid:
+            raise CollectionInvalid("collection %s already exists" % collection_name)
+       
+
+
+def create_collection_method_2(client="", db_name="", collection_name="", validator=""):
+    query = [('collMod', collection_name),('validator', validator)]
+    try:
+        db.create_collection(collection_name)
+    except CollectionInvalid:
+        pass
+    command_result = db.command(OrderedDict(query))
+
+    print('create_collection_method_1:')
 
 def create_collection(client, db_name, col_name):
     """ 
     # create a collation object for the new collection
-colla = Collation(
+coll = Collation(
 locale = "en_US",
 strength = 2,
 numericOrdering = True,
@@ -18,7 +73,7 @@ backwards = False
 )
 
 # dictionary version of the same collation
-# colla = {'locale': 'en_US', 'strength': 2, 'numericOrdering': True, 'backwards': False}
+# coll = {'locale': 'en_US', 'strength': 2, 'numericOrdering': True, 'backwards': False}
 
     try:
         col = db.create_collection(
@@ -28,7 +83,7 @@ backwards = False
         write_concern=None,
         read_concern=None,
         session=None,
-        collation=colla
+        collation=coll
         )
     except Exception as err:
 
@@ -43,7 +98,7 @@ backwards = False
     """
     db = client[db_name]
     db_is_exist_ = db_is_exist(db_name, client)
-    col_is_exist_ = collection_is_exist(client, db_name, col_name)
+    col_is_exist_ = check_collection_exist.collection_is_exist(client, db_name, col_name)
 
     if((db_is_exist_ != None) & (col_is_exist_ == None)):
         print('db_is_exist_ and col_not_exists:',db_is_exist_)
