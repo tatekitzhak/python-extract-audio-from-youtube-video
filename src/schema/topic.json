@@ -1,64 +1,81 @@
 {
     "bsonType": "object",
-    "title": "Product Object Validation",
+    "title": "Topic Object Validation",
     "required": [
-        "name"
+        "title"
     ],
     "properties": {
-        "name": {
-            "bsonType": "string",
-            "description": "'name' is required"
-        },
         "title": {
             "bsonType": "string",
-            "description": "'Title' of topic"
+            "description": "'Title' of topic must be a string and its required"
         },
         "description": {
             "bsonType": "string",
-            "description": "'Description' of topic"
+            "description": "'Description' of the topic must be a string"
         },
         "video": {
-            "bsonType": "string",
+            "bsonType": "object",
             "required": [
                 "url"
             ],
             "properties": {
                 "url": {
                     "bsonType": "string",
-                    "description": "'video' of the topic"
+                    "description": "'Video' of the topic must be a string of array"
                 }
             }
         },
         "article": {
+            "bsonType": "array",
+            "description": "'Article' of the topic must be a string of array and ref to article",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "author": {
             "bsonType": "string",
-            "description": "article"
+            "description": "'Author' of the topic must be a string"
+        },
+        "views": {
+            "bsonType": "int",
+            "minimum": 0,
+            "description": "'Views' of the topic must be a int "
         },
         "rating": {
             "bsonType": "double",
             "minimum": 0.00,
             "maximum": 5.00,
-            "description": "'Rating' must be a number "
+            "description": "'Rating' of the topic must be a double "
         },
         "subscribers": {
             "bsonType": "int",
             "minimum": 0,
-            "description": "'subscribers' must be a number and its required"
+            "description": "'Subscribers' of the topic must be a int"
         },
         "tags": {
-            "bsonType": "string",
-            "description": "'tags' must be a string and its required"
+            "bsonType": "array",
+            "description": "'Tags' of the topic must be a string of array",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
         },
         "subcategory": {
-            "bsonType": "string",
-            "description": "'subcategory' must be a string and its required"
+            "bsonType": "array",
+            "description": "'Subcategory' must be a string of array and ref to subcategory",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
         },
         "thumbnail": {
             "bsonType": "string",
-            "description": "'Thumbnail' must be a string and its required"
+            "description": "'Thumbnail' must be a string"
         },
         "images": {
-            "bsonType": "array",
-            "description": "'Image' must be exists"
+            "bsonType": "string",
+            "description": "'Image' must be a string"
         }
     },
     "additionalProperties": false

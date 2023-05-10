@@ -1,0 +1,43 @@
+{
+    "bsonType": "object",
+    "title": "Subcategory Object Validation",
+    "required": [
+        "title"
+    ],
+    "properties": {
+        "title": {
+            "bsonType": "string",
+            "description": "'Title' must be a string and its required",
+            "minlength": 3,
+            "maxlength": 255
+        },
+        "topics": {
+            "bsonType": "array",
+            "description": "'Topics' must be an array and ref to topics",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "description": {
+            "bsonType": "string",
+            "description": "'Description' of Subcategory and must be a string"
+        },
+        "tags": {
+            "bsonType": "array",
+            "description": "'Tags' must be an array",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "thumbnail": {
+            "bsonType": "string",
+            "description": "'Thumbnail' must be a string "
+        },
+        "images": {
+            "bsonType": "string",
+            "description": "'Image' must be a string"
+        }
+    }
+}

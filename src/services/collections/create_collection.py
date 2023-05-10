@@ -1,10 +1,9 @@
-import json
-import sys
+import os, sys, json, jsonschema
+from jsonschema import validate
 import pymongo
 from pymongo import MongoClient
 from pymongo.errors import CollectionInvalid
 sys.path.append('../db')
-# import the Collation module for PyMongo
 from pymongo.collation import Collation
 from collections import OrderedDict
 from check_db_exist import db_is_exist
@@ -49,18 +48,30 @@ def create_collection_method_1(client="", db_name="", collection_name="", json_s
             return coll_created_res
         except CollectionInvalid:
             raise CollectionInvalid("collection %s already exists" % collection_name)
-       
 
+def create_collection_with_collMod_method_2(client="", db_name="", collection_name="", schema=""):
 
-def create_collection_method_2(client="", db_name="", collection_name="", validator=""):
+    db = client[db_name]
+    schema_dir_path = os.getcwd() + '/schema/'
+    with open(schema_dir_path + 'topic.json', 'r') as file:
+        json_object = json.load(file)
+
+    validator = {
+            "$jsonSchema": json_object,
+            "validationLevel": "strict",
+            "validationAction": "error"
+    }
+
     query = [('collMod', collection_name),('validator', validator)]
     try:
         db.create_collection(collection_name)
     except CollectionInvalid:
+        # raise CollectionInvalid("collection %s already exists" % collection_name)
         pass
     command_result = db.command(OrderedDict(query))
 
-    print('create_collection_method_1:')
+    print('create_collection_with_collMod_method_2:', command_result)
+    return command_result
 
 def create_collection(client, db_name, col_name):
     """ 

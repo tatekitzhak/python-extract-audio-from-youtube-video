@@ -40,7 +40,7 @@ def handle_topic(subcategory_name):
 
     # collection_is_exist(client, "sample_db", "topic_schema4")
     if client != None:
-        res = create_collection.create_collection_method_1(client, 'sample_db', 'topic_schema8',topic_schema1)
+        res = create_collection.create_collection_with_collMod_method_2(client, 'sample_db', 'topic_schema9',topic_schema1)
         print('handle_topic:', res)
 
 def find_subcategory_name(db_name, coll, pipeline):   

@@ -1,0 +1,58 @@
+{
+    collMod: "CustomerOrders",
+    validator: { $jsonSchema: {
+       bsonType: "object",
+       required: [ "dateTime", "restaurantName", "restaurantCity", "restaurantCountry", "contactName", "contactPhone", "contactEmail", "menuSize", "pricePaid", "currentLanguage", "targetLanguage", "imageIDs" ],
+       properties: {
+          dateTime: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          restaurantName: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          restaurantCity: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          restaurantCountry: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          contactName: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          contactPhone: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          contactEmail: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          menuSize: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          pricePaid: {
+             bsonType: "double",
+             description: "must be a string and is required"
+          },
+          currentLanguage: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          targetLanguage: {
+             bsonType: "string",
+             description: "must be a string and is required"
+          },
+          imageIDs: {
+             bsonType: "enum",
+             description: "can only be one of the enum values and is required"
+          }
+       }
+    } },
+    validationLevel: "strict"
+ }

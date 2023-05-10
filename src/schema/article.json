@@ -1,0 +1,55 @@
+{
+    "bsonType": "object",
+    "title": "Article Object Validation",
+    "required": [
+        "title"
+    ],
+    "properties": {
+        "title": {
+            "bsonType": "string",
+            "description": "'Title' of the article must be string and its required"
+        },
+        "description": {
+            "bsonType": "string",
+            "description": "'Description' of the article must be a string"
+        },
+        "content": {
+            "bsonType": "string",
+            "minimum": 0,
+            "description": "'Content' must be a string "
+        },
+        "abstract": {
+            "bsonType": "string",
+            "description": "'Abstract' must be a string"
+        },
+        "subscribers": {
+            "bsonType": "int",
+            "minimum": 0,
+            "description": "'Subscribers' must be a number"
+        },
+        "tags": {
+            "bsonType": "array",
+            "description": "'Tags' of the topic must be a string of array",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "topic": {
+            "bsonType": "array",
+            "description": "'Topic' must be a string of array and ref to topic",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "thumbnail": {
+            "bsonType": "string",
+            "description": "'Thumbnail' must be a string"
+        },
+        "images": {
+            "bsonType": "array",
+            "description": "'Image' must be exists"
+        }
+    }
+}

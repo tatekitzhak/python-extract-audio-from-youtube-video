@@ -1,23 +1,35 @@
 {
-    "collMod": "category",
-    "validator": {
-      "$jsonSchema": {
-        "bsonType": "object",
-        "title": "Product Category Object Validation",
-        "required": [ "_id", "description"],
-        "properties": {
-          "_id":{
-            "bsonType":"string",
-            "description":"'ID' must be a exists"
-          },
-          "description": {
-            "bsonType": "string",
-            "description": "'Description' must be a string and its required"
-          }
-        },
-        "additionalProperties": false
+  "bsonType": "object",
+  "title": "Category Object Validation",
+  "required": [
+    "title"
+  ],
+  "properties": {
+    "title": {
+      "bsonType": "string",
+      "description": "'Title' must be a string and its required",
+      "minlength": 3,
+      "maxlength": 255
+    },
+    "description": {
+      "bsonType": "string",
+      "description": "'Description' of category must be a string"
+    },
+    "tags": {
+      "bsonType": "array",
+      "description": "'Tags' must be an array",
+      "minItems": 0,
+      "items": {
+        "bsonType": "string"
       }
     },
-    "validationLevel": "strict",
-    "validationAction": "error"
+    "subcategories": {
+      "bsonType": "array",
+            "description": "'Subcategories' must be an array",
+            "minItems": 0,
+            "items": {        
+                "bsonType": "string"
+            }
+    }
   }
+}
