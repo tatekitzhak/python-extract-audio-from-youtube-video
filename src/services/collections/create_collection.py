@@ -53,13 +53,13 @@ def create_collection_with_collMod_method_2(client="", db_name="", collection_na
 
     db = client[db_name]
     schema_dir_path = os.getcwd() + '/schema/'
-    with open(schema_dir_path + 'topic.json', 'r') as file:
+    with open(schema_dir_path + collection_name+'.json', 'r') as file:
         json_object = json.load(file)
 
     validator = {
             "$jsonSchema": json_object,
-            "validationLevel": "strict",
-            "validationAction": "error"
+            # "validationLevel": "strict",
+            # "validationAction": "error"
     }
 
     query = [('collMod', collection_name),('validator', validator)]

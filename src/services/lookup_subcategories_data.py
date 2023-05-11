@@ -15,32 +15,11 @@ https://stackoverflow.com/questions/41992885/pymongo-how-to-match-on-lookup
 
 def handle_topic(subcategory_name):
 
-    topic_schema1 = {
-        "bsonType": "object",
-        "title": "Student Object Validation",
-        "required": [ "address", "major", "name", "year" ],
-        "properties": {
-            "name": {
-                "bsonType": "string",
-                "description": "'name' must be a string and is required"
-            },
-            "year": {
-                "bsonType": "int",
-                "minimum": 2017,
-                "maximum": 3017,
-                "description": "'year' must be an integer in [ 2017, 3017 ] and is required"
-            },
-            "gpa": {
-                "bsonType": [ "double" ],
-                "description": "'gpa' must be a double if the field exists"
-            }
-        }
-    }
     client = db_connect()
 
     # collection_is_exist(client, "sample_db", "topic_schema4")
     if client != None:
-        res = create_collection.create_collection_with_collMod_method_2(client, 'sample_db', 'topic_schema9',topic_schema1)
+        res = create_collection.create_collection_with_collMod_method_2(client, 'sample_db', 'article','')
         print('handle_topic:', res)
 
 def find_subcategory_name(db_name, coll, pipeline):   

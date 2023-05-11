@@ -27,8 +27,6 @@ if __name__ == "__main__":
                                  }
                      }]
         
-        # subcategories_data.find_subcategory_name("contxt", "categories", pipeline)
-        
         doc = {
             'fname': 'Maayan1',
             'lname': 'Itzhak1',
@@ -49,7 +47,7 @@ if __name__ == "__main__":
         }
 
         doc3 = {
-            'name': 'Mobile and Embedded Systems333',
+            'name': 'Mobile and Embedded Systems444',
             'title': 'CompTIA Security+ Guide to Network Security Fundamentals Module 5: Mobile, Embedded, & Spec. Devices',
             'description': 'Mobile, Embedded, & Spec. Devices',
             'video': {
@@ -59,8 +57,38 @@ if __name__ == "__main__":
             'rating': 1.433,
             'tags': '#Mobile. #Embedded. #Systems.'
         }
-        insert_res_info = insert_module.insert_one(client, "sample_db", "topic_schema8", doc3)
-        print('insert_res_info:',insert_res_info.inserted_id)
+
+        category = {
+            'title': 'Category1',
+            'description': 'This is a Category description filed',
+            'tags': ['#Category', '#Mobile.', '#Embedded.', '#Systems.'],
+            "subcategories": [ObjectId('645c9c8406fbde8ed928e002')]
+        }
+        subcategory = {
+            'title': 'subcategory',
+            'description': 'This is a Category description filed',
+            'tags': ['#subcategory', '#Mobile.', '#Embedded.', '#Systems.'],
+            "subcategories": [ObjectId('645c9c8406fbde8ed928e002')]
+        }
+
+        topic = {
+            'title': 'Topic',
+            'description': 'This is a Topic description filed',
+            'video': {
+                "url": "https://www.youtube.com/watch?v=M9Fs-CCe0Jo"
+            },
+            "article": [ObjectId('645c9c8406fbde8ed928e002'), ObjectId('645c9c8406fbde8ed928e002'), ObjectId('645c9c8406fbde8ed928e002')],
+            "author": "Author name",
+            "views": 123,
+            "rating": 1.05,
+            "subscribers": 12,
+            "tags": ['#Topic', '#Mobile.', '#Embedded.', '#Systems.','123'],
+        }
+        subcategories_data.find_subcategory_name("contxt", "categories", pipeline)
+        # insert_res_info = insert_module.insert_one(client, "sample_db", "topic", topic)
+        # print('insert_res_info:',insert_res_info.inserted_id)
+
+        
         # mymodule.collection_is_exist(client, 'sample_db', 'col-9')
         # db_is_exist(client, 'sample_db')
      #    msg = create_collection(client, 'sample_db', 'col-13')

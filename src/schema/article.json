@@ -2,7 +2,8 @@
     "bsonType": "object",
     "title": "Article Object Validation",
     "required": [
-        "title"
+        "title",
+        "content"
     ],
     "properties": {
         "title": {
@@ -15,12 +16,13 @@
         },
         "content": {
             "bsonType": "string",
-            "minimum": 0,
-            "description": "'Content' must be a string "
+            "minimum": 10,
+            "description": "'Content' must be a string and its required"
         },
-        "abstract": {
+        "summary": {
             "bsonType": "string",
-            "description": "'Abstract' must be a string"
+            "minimum": 10,
+            "description": "'summary' must be a string"
         },
         "subscribers": {
             "bsonType": "int",
@@ -29,10 +31,11 @@
         },
         "tags": {
             "bsonType": "array",
-            "description": "'Tags' of the topic must be a string of array",
+            "description": "'Tags' of the article must be a string of array",
             "minItems": 0,
             "items": {
-                "bsonType": "string"
+                "bsonType": "string",
+                "description": "The tags 'items' must be a string"
             }
         },
         "topic": {
@@ -40,7 +43,8 @@
             "description": "'Topic' must be a string of array and ref to topic",
             "minItems": 0,
             "items": {
-                "bsonType": "string"
+                "bsonType": "string",
+                "description": "The topic 'items' must be a string"
             }
         },
         "thumbnail": {
@@ -48,8 +52,8 @@
             "description": "'Thumbnail' must be a string"
         },
         "images": {
-            "bsonType": "array",
-            "description": "'Image' must be exists"
+            "bsonType": "string",
+            "description": "'Image' must be a string"
         }
     }
 }

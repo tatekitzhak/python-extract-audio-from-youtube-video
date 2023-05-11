@@ -1,6 +1,7 @@
 {
   "bsonType": "object",
   "title": "Category Object Validation",
+  "additionalProperties": false,
   "required": [
     "title"
   ],
@@ -8,8 +9,8 @@
     "title": {
       "bsonType": "string",
       "description": "'Title' must be a string and its required",
-      "minlength": 3,
-      "maxlength": 255
+      "minLength": 3,
+      "maxLength": 255
     },
     "description": {
       "bsonType": "string",
@@ -20,15 +21,17 @@
       "description": "'Tags' must be an array",
       "minItems": 0,
       "items": {
-        "bsonType": "string"
+        "bsonType": "string",
+        "description": "'items' of the tags array must be a string"
       }
     },
     "subcategories": {
       "bsonType": "array",
-            "description": "'Subcategories' must be an array",
+            "description": "'Subcategories' must be an array and ref to subcategory",
             "minItems": 0,
             "items": {        
-                "bsonType": "string"
+                "bsonType": "objectId",
+                "description": "This item must be a ObjectId of subcategory document"
             }
     }
   }
