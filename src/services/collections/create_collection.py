@@ -1,13 +1,17 @@
-import os, sys, json, jsonschema
+import os, sys, json, jsonschema, logging
 from jsonschema import validate
 import pymongo
 from pymongo import MongoClient
 from pymongo.errors import CollectionInvalid
-sys.path.append('../db')
 from pymongo.collation import Collation
 from collections import OrderedDict
-from check_db_exist import db_is_exist
-from services.collections.check_collection_exist import collection_is_exist
+
+from database_connection import db_connect
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..')))
+from logger_track import events_logger
+
+
 
 # https://analyticsindiamag.com/guide-to-pymongo-a-python-wrapper-for-mongodb/
 
@@ -35,21 +39,15 @@ def create_collection_method_1(client="", db_name="", collection_name="", json_s
 
     db = client[db_name]
     
-    # if collection not exist create the collection_name
-    coll_is_exist = collection_is_exist(client, db_name, collection_name)
-    if 0:
-        print('create_collection_method_1 *:', coll_is_exist)
-        return True
-    else:
+    try:
+        collection_created = db.create_collection(collection_name)
+        
+        print('create_collection_method_1 :', collection_created)
+        return collection_created
+    except CollectionInvalid:
+        raise CollectionInvalid("Collection %s already exists" % collection_name)
     
-        try:
-            coll_created_res = db.create_collection(collection_name)
-            print('create_collection_method_1 **:', coll_created_res)
-            return coll_created_res
-        except CollectionInvalid:
-            raise CollectionInvalid("collection %s already exists" % collection_name)
-
-def create_collection_with_collMod_method_2(client="", db_name="", collection_name="", schema=""):
+def create_collection_with_collMod_method_2(client="", db_name="", collection_name="", schema="") -> dict:
 
     db = client[db_name]
     schema_dir_path = os.getcwd() + '/schema/'
@@ -64,7 +62,8 @@ def create_collection_with_collMod_method_2(client="", db_name="", collection_na
 
     query = [('collMod', collection_name),('validator', validator)]
     try:
-        db.create_collection(collection_name)
+        coll_created_res = db.create_collection(collection_name)
+        return coll_created_res
     except CollectionInvalid:
         # raise CollectionInvalid("collection %s already exists" % collection_name)
         pass
@@ -72,6 +71,55 @@ def create_collection_with_collMod_method_2(client="", db_name="", collection_na
 
     print('create_collection_with_collMod_method_2:', command_result)
     return command_result
+
+def create_collection_with_collMod_command(db_name: str, collection_name: str) -> dict:
+    # DIR1 = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+
+    # print('os.path.dirname(__file__):', DIR1)
+    client = db_connect()
+    if client != None:
+
+        command_result = {}
+        db = client[db_name]
+
+        try:
+            schema_dir_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../..', 'schema', collection_name+'.json'))
+               
+            with open(schema_dir_path, 'r') as file:
+                json_object = json.load(file)
+
+                validator = {
+                        "$jsonSchema": json_object,
+                        # "validationLevel": "strict",
+                        # "validationAction": "error"
+                }
+
+                query = [('collMod', collection_name),('validator', validator)]
+                try:
+                    coll = Collation(locale = "en_US", strength = 2, numericOrdering = True, backwards = False)
+
+                    create_coll = db.create_collection(
+                        name=collection_name,
+                        collation=coll
+                    )
+                    command_result = db.command(OrderedDict(query))
+
+                except CollectionInvalid as e:
+                    events_logger(__name__, f"Collection Invalid Errors: '{collection_name}' already exists. {e}", logging.ERROR, logging.DEBUG)
+                    raise CollectionInvalid("collection %s already exists" % collection_name)
+                else:
+                    print(f"Collection '{collection_name}' successfully created")
+        except FileNotFoundError as e:
+            events_logger(__name__, f"FileNotFoundError: {e}", logging.ERROR, logging.DEBUG)
+            raise e
+
+        print('create_collection_with_collMod_command:', command_result)
+        
+        return {
+            "message": "Collection status",
+            "create_collection_result": create_coll,
+            "command_collMod_result": command_result
+        }
 
 def create_collection(client, db_name, col_name):
     """ 
@@ -107,18 +155,4 @@ backwards = False
 
         print ("Collection name:", col.name)
     """
-    db = client[db_name]
-    db_is_exist_ = db_is_exist(db_name, client)
-    col_is_exist_ = check_collection_exist.collection_is_exist(client, db_name, col_name)
-
-    if((db_is_exist_ != None) & (col_is_exist_ == None)):
-        print('db_is_exist_ and col_not_exists:',db_is_exist_)
-        db.create_collection(name=col_name, codec_options=None, read_preference=None, write_concern=None, read_concern=None, session=None)
-        col_dict = db.validate_collection(col_name)
-        print(db.list_collection_names(), col_dict)
-        #  raise TypeError("name_or_collection must be an instance of str or Collection")
-        return 'A New Collection is created: ' + col_name
-    else:
-        return 'Database: ' + db_name + ' does not exist or collection: '+ col_name +' is exist'
-
-    print('list_collection_names:',db.list_collection_names())
+    

@@ -1,0 +1,82 @@
+{
+    "bsonType": "object",
+    "additionalProperties": false,
+    "title": "Audio Object Validation",
+    "required": [ "_id", "title", "audio"],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "'_id' is required"
+        },
+        "youtube_id": {
+            "bsonType": "string",
+            "description": "'youtube_id' is "
+        },
+        "title": {
+            "bsonType": "string",
+            "description": "'Title' of audio must be a string and its required"
+        },
+        "description": {
+            "bsonType": "string",
+            "description": "'Description' of the audio must be a string"
+        },
+        "audio": {
+            "bsonType": "object",
+            "description": "'audio' of topic must be a object",
+            "required": [
+                "url"
+            ],
+            "properties": {
+                "url": {
+                    "bsonType": "string",
+                    "description": "'url' of the 'audio' must be a string"
+                }
+            }
+        },
+        "article_ref_ids": {
+            "bsonType": "array",
+            "description": "'article_ref_ids' of the audio must be a array of ObjectId and ref to article",
+            "minItems": 0,
+            "items": {
+                "bsonType": "objectId",
+                "description": "This 'items' must be a ObjectId"
+            }
+        },
+        "author": {
+            "bsonType": "string",
+            "description": "'Author' of the topic must be a string"
+        },
+        "views": {
+            "bsonType": "int",
+            "minimum": 0,
+            "description": "'Views' of the topic must be a int "
+        },
+        "rating": {
+            "bsonType": "double",
+            "minimum": 0.00,
+            "maximum": 5.00,
+            "description": "'Rating' of the topic must be a double "
+        },
+        "subscribers": {
+            "bsonType": "int",
+            "minimum": 0,
+            "description": "'Subscribers' of the topic must be a int"
+        },
+        "tags": {
+            "bsonType": "array",
+            "description": "'Tags' of the topic must be a string of array",
+            "minItems": 0,
+            "items": {
+                "bsonType": "string"
+            }
+        },
+        "thumbnail": {
+            "bsonType": "string",
+            "description": "'Thumbnail' must be a string"
+        },
+        "images": {
+            "bsonType": "string",
+            "description": "'Image' must be a string"
+        }
+    }
+}

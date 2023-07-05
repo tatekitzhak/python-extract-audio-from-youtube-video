@@ -1,83 +1,76 @@
 {
     "bsonType": "object",
+    "additionalProperties": false,
     "title": "Topic Object Validation",
-    "required": [
-        "title"
-    ],
+    "required": [ "_id", "title", "topic_id"],
     "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "description": "'_id' is required"
+        },
         "title": {
             "bsonType": "string",
             "description": "'Title' of topic must be a string and its required"
+        },
+        "topic_id": {
+            "bsonType": "string",
+            "description": "'topic_id' of topic must be a string and its required"
         },
         "description": {
             "bsonType": "string",
             "description": "'Description' of the topic must be a string"
         },
-        "video": {
-            "bsonType": "object",
-            "description": "'video' of topic must be a object",
-            "required": [
-                "url"
-            ],
-            "properties": {
-                "url": {
-                    "bsonType": "string",
-                    "description": "'url' of the 'video' must be a string"
-                }
-            }
-        },
-        "article": {
-            "bsonType": "array",
-            "description": "'Article' of the topic must be a string of array and ref to article",
-            "minItems": 0,
-            "items": {
-                "bsonType": "string",
-                "description": "This item must be a ObjectId"
-            }
-        },
-        "author": {
-            "bsonType": "string",
-            "description": "'Author' of the topic must be a string"
-        },
-        "views": {
-            "bsonType": "int",
-            "minimum": 0,
-            "description": "'Views' of the topic must be a int "
-        },
-        "rating": {
-            "bsonType": "double",
-            "minimum": 0.00,
-            "maximum": 5.00,
-            "description": "'Rating' of the topic must be a double "
-        },
-        "subscribers": {
-            "bsonType": "int",
-            "minimum": 0,
-            "description": "'Subscribers' of the topic must be a int"
-        },
         "tags": {
             "bsonType": "array",
-            "description": "'Tags' of the topic must be a string of array",
+            "description": "'tags' of the topic must be a string of array",
             "minItems": 0,
             "items": {
                 "bsonType": "string"
             }
         },
-        "subcategory": {
+        "article_ref_ids": {
+            "bsonType": "array",
+            "description": "'article_ref_ids' of the topic must be a string of array and ref to article",
+            "minItems": 0,
+            "items": {
+                "bsonType": "objectId",
+                "description": "This 'items' must be a ObjectId of article document"
+            }
+        },
+        "video_ref_ids": {
+            "bsonType": "array",
+            "description": "'video_ref_ids' of the topic must be a string of array and ref to video",
+            "minItems": 0,
+            "items": {
+                "bsonType": "objectId",
+                "description": "This 'items' must be a ObjectId of video document"
+            }
+        },
+        "audio_ref_ids": {
+            "bsonType": "array",
+            "description": "'audio_ref_ids' of the topic must be a string of array and ref to audio",
+            "minItems": 0,
+            "items": {
+                "bsonType": "objectId",
+                "description": "This 'items' must be a ObjectId of audio document"
+            }
+        },
+        "subcategory_ref_ids": {
             "bsonType": "array",
             "description": "'Subcategory' must be a string of array and ref to subcategory",
             "minItems": 0,
             "items": {
-                "bsonType": "string"
+                "bsonType": "objectId",
+                "description": "This 'items' must be a ObjectId of subcategory document"
             }
         },
-        "thumbnail": {
-            "bsonType": "string",
-            "description": "'Thumbnail' must be a string"
+        "created_at": {
+            "bsonType": "date",
+            "description": "'created_at' must be a date"
         },
-        "images": {
-            "bsonType": "string",
-            "description": "'Image' must be a string"
+        "updated_at": {
+            "bsonType": "date",
+            "description": "'updated_at' must be a date"
         }
     }
 }

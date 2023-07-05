@@ -23,7 +23,7 @@
 
 from __future__ import unicode_literals
 import yt_dlp
-
+import json
 folder_name = 'converted_video_download'
 audio_file_name1 = 'F_QFkE-UbGM'
 audio_file_long = '8hly31xKli0'
@@ -64,9 +64,15 @@ print('upload date : %s' % (meta['upload_date']))
 print('uploader    : %s' % (meta['uploader']))
 print('views       : %d' % (meta['view_count']))
 print('likes       : %d' % (meta['like_count']))
+print('comment_count       : %d' % (meta['comment_count']))
 # print ('dislikes   : %d' % (meta['dislike_count']))
 print('id          : %s' % (meta['id']))
 print('format      : %s' % (meta['format']))
 print('duration    : %s' % (meta['duration']))
 print('title       : %s' % (meta['title']))
 print('description : %s' % (meta['description']))
+# meta_to_str = ''+meta+''
+# parsed = json.loads(meta_to_str)
+# print('meta :', json.dumps(parsed, indent=4))
+
+# print('meta :', meta)

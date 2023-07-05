@@ -14,6 +14,19 @@ def db_connect():
 
         # print the version of MongoDB server if connection successful
         print("DB server version:", db_client.server_info()["version"])
+        
+        """
+        # Get server information
+        for k, v in db_client.server_info().items():
+            print("Key: {} , Value: {}".format(k, v))
+
+        # Get server status of admin database
+        print("Server status {}".format(db_client.admin.command("serverStatus")))
+
+        # List databases
+        databases = db_client.list_database_names()
+        print("Databases: {}".format(databases))
+        """
         return db_client
 
     except errors.ServerSelectionTimeoutError as err:
@@ -21,5 +34,5 @@ def db_connect():
         db_client = None
 
         # catch pymongo.errors.ServerSelectionTimeoutError
-        print("pymongo ERROR:", err)
+        print("pymongo ERROR, Server not available:", err)
         return db_client
