@@ -6,12 +6,13 @@ from pymongo.errors import CollectionInvalid
 from pymongo.collation import Collation
 from collections import OrderedDict
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../..', 'db')))
 from database_connection import db_connect
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..')))
 from logger_track import events_logger
 
-
+print(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../..', 'db')))
 
 # https://analyticsindiamag.com/guide-to-pymongo-a-python-wrapper-for-mongodb/
 
